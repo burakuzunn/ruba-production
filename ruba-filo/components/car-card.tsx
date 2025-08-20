@@ -5,16 +5,19 @@ import React, { useState } from 'react'
 
 import { Card, CardContent } from './ui/card'
 import Image from 'next/image'
-import { Heart } from 'lucide-react'
+import {Heart } from 'lucide-react'
 import { Button } from './ui/button';
+import { Badge } from "./ui/badge"; 
+import { useRouter } from 'next/navigation';
  
 const CarCard = ({ car }:any) => {
   const [isSaved, setIsSaved] = useState(car.wishlisted);
 const handleToggleSave = async (data:any)=>{
   
 };
+const router= useRouter()
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition group">
+    <Card className="overflow-hidden hover:shadow-lg transition group py-0">
       <div className="relative h-48">
         {car.images && car.images.length > 0 ? (
           <div className="relative w-full h-full">
@@ -43,14 +46,32 @@ const handleToggleSave = async (data:any)=>{
         </div>
 
         <div className='text-gray-600 mb-2 flex items-center'>
+          <Badge variant="outline" className='bg-gray-50'>
+
           <span>{car.year}</span>
-          <span className='mx-2'>●</span>
+          </Badge>
+         
+          <Badge variant="outline" className='bg-gray-50'>
+
+  
           <span>{car.transmission}</span>
+          </Badge>
+
+    
+          <Badge variant="outline" className='bg-gray-50'>
+
+  
+          <span>{car.fuelType}</span> 
+          </Badge>
       
-          <span className='mx-2'>●</span>
 
-          <span>{car.fuelType}</span>
+        </div>
 
+        <div className='flex justify-between'>
+          <Button
+          className='flex-1'
+          onClick={() => router.push(`/cars/${car.id}`)}
+          >View Car </Button>
         </div>
       </CardContent>
     </Card>
