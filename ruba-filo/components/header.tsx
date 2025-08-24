@@ -2,12 +2,22 @@
 import { SignedOut, SignInButton, SignUpButton, SignedIn, SignOutButton, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { ArrowLeft, CarFront, Heart, Layout } from 'lucide-react';
-
+ 
 const Header = ({ isAdminPage = false }: { isAdminPage?: boolean }) => {
-  const isAdmin=false;
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then(setUser)
+      .catch(console.error);
+  }, []);
+
+  const isAdmin = user?.role === "ADMIN";
+
   return (
     <header className='fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b'>
     <nav className='mx-auto px-4 py-4 flex items-center justify-between'>
@@ -16,7 +26,7 @@ const Header = ({ isAdminPage = false }: { isAdminPage?: boolean }) => {
      <Link href={isAdminPage?"/admin": "/" } className='flex'>
   {
     isAdminPage&&(
-      <span className='text-xs font-extralight' >admin</span>
+      <span className='text-xs font-extralight'>admin</span>
     )
   }
 </Link>
