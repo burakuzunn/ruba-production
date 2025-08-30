@@ -36,7 +36,7 @@ function formatRangeLabel(r?: DateRange) {
     return `${r.from.toLocaleDateString()} - ${r.to.toLocaleDateString()}`;
   }
   if (r?.from) return `${r.from.toLocaleDateString()} - …`;
-  return "Testttt";
+  return "Tarih aralığı v2 seç";
 }
 
 export default function Home() {
